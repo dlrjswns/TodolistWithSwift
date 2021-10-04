@@ -8,6 +8,11 @@
 import UIKit
 
 class TableCell:UITableViewCell{
+//    lazy var checkImage:UIImageView={
+//       let image = UIImageView(image: UIImage(systemName: "checkmark"))
+//        image.contentMode = .scaleAspectFit
+//        return image
+//    }()
     
     lazy var planLabel:UILabel = {
         let label = UILabel()
@@ -36,5 +41,6 @@ class TableCell:UITableViewCell{
         addSubview(planLabel)
         planLabel.translatesAutoresizingMaskIntoConstraints = false
         planLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        planLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
     }
 }

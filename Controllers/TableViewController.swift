@@ -30,8 +30,10 @@ class TableViewController:UITableViewController{
         
         let positive = UIAlertAction(title: "추가", style: .default, handler: {_ in
             let tf = alert.textFields?[0]
-            if let textField = tf, textField.text != ""{
-                self.items.append(textField.text)
+            if let textField = tf?.text, textField != ""{
+                self.items.append(textField)
+                let indexPath = IndexPath(row: self.items.count-1, section: 0)
+                self.tableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             }
         })
         
@@ -40,7 +42,7 @@ class TableViewController:UITableViewController{
         alert.addAction(positive)
         alert.addAction(negative)
         
-        alert.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
         
         
     }
@@ -65,5 +67,12 @@ extension TableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: reusableIdentifier, for: indexPath) as! TableCell
         cell.item = items[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            items.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
     }
 }
